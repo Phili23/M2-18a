@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class='clase'>
+        <h2>personajes</h2>
+        <button id="botoncito">Traer personaje! :D</button>
+        <button id="borrar-post"> borrar posteo! </button>
+        <div id="characterContainer">
+        </div>
+    </div>
+    <script>
+        var id = 1
+        function traerPersonaje() {
+            $.get('https://rickandmortyapi.com/api/character/' + id, function(data) {
+                var personaje = data
+                var parrafo = document.createElement('p')
+                parrafo.innerText = personaje.name
+                var imagen = document.createElement('img')
+                imagen.src = personaje.image
+                characterContainer.appendChild(parrafo)
+                characterContainer.appendChild(imagen)
+            })
+            id++
+        }
+        var postId = 1
+        function borrarPosteo() {
+            $.ajax({
+                url:'https://jsonplaceholder.typicode.com/posts/' + postId,
+                type: "DELETE",
+                success: function(data) {
+                    console.log(data)
+                }
+            })
+            postId++
+        }
+        var botoncito = $('#botoncito')[0]
+        var botonBorrarPost = $('#borrar-post')[0]
+        console.log(botoncito)
+        botoncito.addEventListener('click', traerPersonaje)
+        botonBorrarPost.addEventListener('click', borrarPosteo)
+        //var personajes
+        //me compro la computadora en mercadolibre
+        // $.get('https://rickandmortyapi.com/api/character', function(data) {//va a enviar mi pedido
+        //     //ya llego mi computadora, cuando termine de cocinar, la armo
+        //     personajes = data.results
+        //     console.log(personajes, 'linea 21')
+        //     //var characterContainer = $('#characterContainer')[0]
+        //     var characterContainer = document.getElementById('characterContainer')
+        //     personajes.forEach((personaje) =>{
+        //         var parrafo = document.createElement('p')
+        //         parrafo.innerText = personaje.name
+        //         var imagen = document.createElement('img')
+        //         imagen.src = personaje.image
+        //         characterContainer.appendChild(parrafo)
+        //         characterContainer.appendChild(imagen)
+        //     })
+        // })
+    </script>
+</body>
+</html>
